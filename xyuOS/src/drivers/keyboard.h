@@ -3,7 +3,8 @@
 
 typedef enum {
   KEY_NONE=0, KEY_ENTER=13, KEY_BKSP=8, KEY_TAB=9,
-  KEY_UP=1001, KEY_DOWN, KEY_LEFT, KEY_RIGHT
+  KEY_UP=1001, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_F1,
+  KEY_F2
 } keycode_t;
 
 void keyboard_init(void);

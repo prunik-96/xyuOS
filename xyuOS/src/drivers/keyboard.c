@@ -2,7 +2,8 @@
 #include "ports.h"
 
 #define KBD_DATA 0x60
-
+#define KEY_F1  0x3B
+#define KEY_F2  0x3C
 static volatile keycode_t q[128];
 static volatile int qh=0, qt=0;
 

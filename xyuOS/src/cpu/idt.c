@@ -39,10 +39,10 @@ void idt_init(void){
 
   for(int i=0;i<256;i++) idt_set_gate((uint8_t)i, 0, 0, 0);
 
-  // 0x08 — кодовый сегмент (GRUB обычно ставит плоский GDT; этого достаточно на старте)
-  idt_set_gate(32,  (uint32_t)isr32,  0x08, 0x8E); // IRQ0
-  idt_set_gate(33,  (uint32_t)isr33,  0x08, 0x8E); // IRQ1
-  idt_set_gate(128, (uint32_t)isr128, 0x08, 0xEE); // int 0x80 (user-call, DPL=3)
+
+  idt_set_gate(32,  (uint32_t)isr32,  0x08, 0x8E); 
+  idt_set_gate(33,  (uint32_t)isr33,  0x08, 0x8E); 
+  idt_set_gate(128, (uint32_t)isr128, 0x08, 0xEE);
 
   lidt(&idtp);
 }
