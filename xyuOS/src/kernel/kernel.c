@@ -112,7 +112,7 @@ static void draw_ui(void){
     vga_print(3,20,"BOTTOM",0x0C);
 
     con_clear();
-    con_print("WELCOME TO XUYOS 0.153 |write help if you heed help|\n");
+    con_print("WELCOME TO XUYOS 0.153 |write help if you need help|\n");
 }
 
 static void redraw_input(void){
@@ -353,3 +353,4 @@ void kernel_main(void){
         __asm__ volatile("hlt");
     }
 }
+
