@@ -9,6 +9,7 @@ ISO_DIR = iso
 ISO_OUT = myos.iso
 
 OBJS = \
+  src/apps/editor.o \
   src/boot/boot.o \
   src/kernel/kernel.o \
   src/drivers/vga.o \
@@ -56,3 +57,4 @@ clean:
 	find src -name "*.o" -type f -delete
 
 .PHONY: all run clean
+
