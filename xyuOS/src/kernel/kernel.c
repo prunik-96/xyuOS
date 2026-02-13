@@ -6,6 +6,7 @@
 #include "../cpu/idt.h"
 #include "../util/string.h"
 #include <stdint.h>
+#include "../apps/editor.h"
 
 #define CON_X 42
 #define CON_Y 4
@@ -283,28 +284,35 @@ void kernel_main(void){
   redraw_input();
   con_print("IRQ: enabled\n");
 
+  // Инициализация редактора
+  static editor_t editor;
+  editor_init(&editor);
+
+  // Основной цикл
   for(;;){
     keycode_t k;
     while(keyboard_pop(&k)){
-      if(k == KEY_ENTER){
-        con_putc('\n');
-        input[inlen]=0;
-        exec_command(input);
-        inlen=0;
-        input[0]=0;
-        redraw_input();
+      if(k >= 32 && k <= 126){
+        editor_handle_key(&editor, 0, (char)k);
+        editor_render(&editor);
+      } else if(k == KEY_ENTER){
+        editor_handle_key(&editor, KEY_ENTER, 0);
+        editor_render(&editor);
       } else if(k == KEY_BKSP){
-        if(inlen>0){
-          inlen--;
-          input[inlen]=0;
-          redraw_input();
-        }
-      } else if(k >= 32 && k <= 126){
-        if(inlen < (int)sizeof(input)-1){
-          input[inlen++] = (char)k;
-          input[inlen]=0;
-          redraw_input();
-        }
+        editor_handle_key(&editor, KEY_BKSP, 0);
+        editor_render(&editor);
+      } else if(k == KEY_LEFT){
+        editor_handle_key(&editor, KEY_LEFT, 0);
+        editor_render(&editor);
+      } else if(k == KEY_RIGHT){
+        editor_handle_key(&editor, KEY_RIGHT, 0);
+        editor_render(&editor);
+      } else if(k == KEY_UP){
+        editor_handle_key(&editor, KEY_UP, 0);
+        editor_render(&editor);
+      } else if(k == KEY_DOWN){
+        editor_handle_key(&editor, KEY_DOWN, 0);
+        editor_render(&editor);
       }
     }
     __asm__ volatile("hlt");
