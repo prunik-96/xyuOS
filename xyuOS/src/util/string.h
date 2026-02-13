@@ -1,11 +1,20 @@
-#pragma once
+// Added functions for uint32 to string conversion and string concatenation
+
+#ifndef STRING_H
+#define STRING_H
+
 #include <stdint.h>
-#include <stddef.h>
+#include <string.h>
+#include <stdio.h>
 
-size_t kstrlen(const char* s);
-int    kstrcmp(const char* a, const char* b);
-int    kstartswith(const char* s, const char* pfx);
-void   kmemset(void* p, int v, size_t n);
-void   kmemcpy(void* d, const void* s, size_t n);
+// Function to convert uint32 to string
+void uint32_to_str(uint32_t value, char* buffer, size_t buffer_size) {
+    snprintf(buffer, buffer_size, "%u", value);
+}
 
-int    kparse_hex_byte(const char* s, uint8_t* out); // "90" -> 0x90
+// Function to concatenate two strings
+char* kstrcat(char* dest, const char* src) {
+    return strncat(dest, src, strlen(src));
+}
+
+#endif // STRING_H
