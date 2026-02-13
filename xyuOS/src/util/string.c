@@ -43,3 +43,46 @@ int kparse_hex_byte(const char* s, uint8_t* out){
   *out = (uint8_t)((a<<4)|b);
   return 1;
 }
+
+// Новые функции
+
+void uint32_to_str(uint32_t value, char* buf, size_t bufsize){
+  if(bufsize < 2) return;
+  char tmp[16];
+  int i = 0;
+  if(value == 0){
+    buf[0] = '0';
+    buf[1] = '\0';
+    return;
+  }
+  uint32_t v = value;
+  while(v > 0 && i < 15){
+    tmp[i++] = '0' + (v % 10);
+    v /= 10;
+  }
+  int j = 0;
+  while(i > 0 && j < (int)bufsize - 1){
+    buf[j++] = tmp[--i];
+  }
+  buf[j] = '\0';
+}
+
+void kstrcat(char* dest, const char* src){
+  size_t dest_len = kstrlen(dest);
+  size_t src_len = kstrlen(src);
+  size_t i = 0;
+  while(i < src_len){
+    dest[dest_len + i] = src[i];
+    i++;
+  }
+  dest[dest_len + src_len] = '\0';
+}
+
+void kstrcpy(char* dest, const char* src, size_t maxlen){
+  size_t i = 0;
+  while(i < maxlen - 1 && src[i]){
+    dest[i] = src[i];
+    i++;
+  }
+  dest[i] = '\0';
+}
